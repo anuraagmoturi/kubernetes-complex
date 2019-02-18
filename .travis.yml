@@ -21,7 +21,7 @@ after_success:
   - docker push anuraagmoturi/multi-server
   - docker push anuraagmoturi/multi-worker
 
-delpoy: 
+deploy: 
   provider: elasticbeanstalk
   regio: us-east-2
   app: docker-multicontainer
