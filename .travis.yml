@@ -15,7 +15,22 @@ after_success:
   - docker build -t anuraagmoturi/multi-worker ./worker
 
   - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
+  
   - docker push anuraagmoturi/multi-client
   - docker push anuraagmoturi/multi-nginx
   - docker push anuraagmoturi/multi-server
   - docker push anuraagmoturi/multi-worker
+
+delpoy: 
+  provider: elasticbeanstalk
+  regio: us-east-2
+  app: docker-multicontainer
+  env: DockerMulticontainer-env
+  bucket_name: elasticbeanstalk-us-east-2-381039485210
+  bucket_path: docker-multicontainer
+  on:
+    branch: master
+    access_key_id: $AWS_ACCESS_KEY
+    secret_access_key: 
+      secure: $AWS_SECRET_KEY
+  
