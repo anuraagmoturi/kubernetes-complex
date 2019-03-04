@@ -1,0 +1,108 @@
+installation
+
+brew install kubectl
+download virtualbox
+brew cask install minikube
+
+###################################################################
+
+#minikube
+
+minikube start - creates VM (Node / cluster which runs some objects)
+
+minikube status
+
+minikube ip
+
+minikube docker-env
+
+minikube dashboard
+
+###################################################################
+
+
+#kubectl
+
+kubectl cluster-info
+
+kubectl apply -f {file-path / directory}
+
+kubectl get pods {(type of ojects)}
+
+kubectl get pods -o wide
+
+kubectl describe {object type} {object name (optional)}
+
+kubectl delete -f {file path}
+
+kubectl delete {object type} {name of object}
+
+kubectl set image {object type} / {object name} {container name} = {new image}
+
+kubectl logs {object name}
+
+kubectl exec -it {object name} sh
+
+kubectl get storageclass
+
+kubectl create {object type (secret)} {type of secret (generic /tls/ docker-registry)} {name of secret} --from-literal key=value
+
+###################################################################
+
+#config docker cli
+
+eval $(minikube docker-env)
+
+
+###################################################################
+
+#Ingress
+
+kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/master/deploy/mandatory.yaml
+
+minikube addons enable ingress
+
+minikube addons disable ingress
+
+kubectl get pods -n ingress-nginx
+
+minikube addons disable ingress
+
+###################################################################
+
+
+#Points:
+
+Deployment -> Pod -> Container
+
+Type of Objects:
+    - StatefulSet
+    - ReplicaController
+    - Pod -> Run a container
+    - Deployment -> identical pods 
+    - Service -> setting up networking
+        - CluesterIP
+        - NodePort -> Expose a container (for dev purpose)
+        - LoadBalancer
+        - Ingress
+    - Secrets -> securely store inside cluster (db password)
+
+Important Notes:
+
+Kubernetes is a system to deploy containerized apps.
+Nodes are individual VM's that run contianers.
+Masters are Vm's with a set of programs to manage Nodes.
+Kubernetes didn't build out images, it got them from dockerhub.
+Kubernetes (the master) decided where to run each container - each node can 
+    run a dissimilar set of contianers.
+To deploy something, we update the desired state of the master with a config file.
+The master works constantly to meet the desired state.
+
+Types of Volumes:
+    - Volumes -> at pod level
+    - Persistent volume -> outside pod, statically / dynamical provisioned
+    - Persistent Volume Claim (PVC) -> options available
+        - Access Modes:
+            - ReadWriteOnce -> can be used by single node
+            - ReadOnlyMany -> Multiple nodes can read from this
+            - ReadWriteMany -> can be read and write to many nodes

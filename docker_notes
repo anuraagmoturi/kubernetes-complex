@@ -1,0 +1,29 @@
+docker ps - list running containers
+docker ps -all - list all containers
+docker system prune - delete stoped containers and build cache (downloaded from docker hub)
+docker run =
+    docker create hello-world
+    docker start -a <id> (-a attach, watch output and print in the terminal)
+    docker logs <id>
+docker stop <id>
+docker kill <id>
+docker attach <id> - attach to std in 
+
+docker exec -it <id> <command> 
+docker exec -t 21332s sh
+    -ps - prints all the running processes 
+
+create custom image
+- create Dockerfile
+
+docker build .
+docker build -t <image-name> .
+docker commit -c 'CMD ["redis-server]' <id> - creates image out of containers
+docker build -f Dockerfile.dev .
+docker run -p 3000L:3000 <id>
+
+create docker-compose.yml
+docker-compose up --build
+docker-compose up
+
+
